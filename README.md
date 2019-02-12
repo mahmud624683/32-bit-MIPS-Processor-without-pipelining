@@ -1,5 +1,4 @@
 # 32-bit-MIPS-Processor-without-pipelining
-Follwed instructions & test case:
 
 A 32-bit MIPS processor has to be designed keeping the following specifications in mind.
  The instruction set will be 32-bit and compatible with R-format, load operation, store
