@@ -48,29 +48,53 @@ Addi              101000    xxxxxx      00      0010
 
  Finally We have implement the following c-code whose equivalent assembly
 language is also given below.
+
 // c code - 01
+
 int a=0; // temporary variable 1
+
 int b=1; // temporary variable 2
+
 int c; // variable three
+
 for (int i=0; i<20; i=i+2)
 {
+
 c=a+b; // variable 3 = variable 1 + variable 2
+
 a=b; // variable 1 gets the value of variable 2
+
 b=c; // variable 2 gets the new value of variable 3
 }
-// store value of “c” in data memory// Assembly code
-//initialize the first two variables in temp register
+
+// storing value of “c” in data memory// Assembly code
+
+//initializing the first two variables in temp register
+
 addi $t1, $t1, 0 // PC=04
+
 addi $t2, $t2, 1 // PC=08
+
 addi $t3, $t3, 0 // $t3 holds the value of int i. PC=12
+
 addi $t4, $t4, 20 // $t4 = 20. PC=16
+
 add $s1, $t1, $t2 // c=a+b. PC=20
+
 addi $t1, $t2, 0 // a=b. PC=24
+
 addi $t2, $s1, 0 // b=c. PC=28
+
 addi $t3, $t3, 2 // i=i+2. PC=32
+
 beq $t4, $t3, 1 // if branch taken then jump to PC+4+4
+
 // PC=36
+
 j 5 // else jump to PC=20. Loop continues PC=40
+
 sw $s1, 5($t4) // memory[5+$t4] = $s1 PC=44
+
 slt $s2, $t4, $s1 // if $s2=1 then c>20 PC=48
+
 // Program ends here
