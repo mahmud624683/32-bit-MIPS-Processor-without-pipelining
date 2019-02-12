@@ -1,26 +1,24 @@
 # 32-bit-MIPS-Processor-without-pipelining
 
-A 32-bit MIPS processor has to be designed keeping the following specifications in mind.
+This 32-bit MIPS processor is designed keeping the following specifications in mind.
+
  The instruction set will be 32-bit and compatible with R-format, load operation, store
 operation, branch and unconditional jump.
+
  The six students will form 3 sub-group. Initially, One sub-group will work on ALU and
 Register, another group on Instruction memory and Data memory and the third group on
 the control circuit design. After finishing their respective job all the sub-group will work
 as one group and integrate the whole design.
+
  The MIPS module (Processor module) must be designed only using synthesizeable
 Verilog code. Proper commenting throughout the code will be given positive marks.
+
  Although traditional MIPS architecture has 32 registers reserved for proper functionality,
 for the design purpose only $t0 - $t8 registers are required with 5-bit addressing i.e
 5’b00000 corresponding to $s0 and 5’b01000 corresponding to $t8. With 32-bit addressing, the data memory has a size of 4Gb. For project demonstration,
 only the first 32 word memories could be initialized to zero.
- The students have to write the machine code in the instruction register. Only the first 32
-word memories could accommodate the entire machine code of the given program.
- The R-format includes ALU operation such as ADD, SUB, AND, OR, NOR, SLT.
- The following opcode, function, alu_op and alu_control bits have to be implemented
-according to their respective operation.
- Group who could implement the design in FPGA board will be awarded with bonus
-marks.
-SET - 1
+
+
 Operation Opcode Function alu_op alu_control
 R-format (ADD) 000000 100000 10 0010
 R-format (SUB) 000000 100010 10 0110
@@ -34,7 +32,9 @@ Lw 100011 xxxxxx 00 0010
 Sw 101011 xxxxxx 00 0010
 Jump 100110 xxxxxx 00 0010
 Addi 101000 xxxxxx 00 0010
- Finally the students have to implement the following c-code whose equivalent assembly
+
+
+ Finally We have implement the following c-code whose equivalent assembly
 language is also given below.
 // c code - 01
 int a=0; // temporary variable 1
