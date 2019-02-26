@@ -5,17 +5,12 @@ This 32-bit MIPS processor is designed keeping the following specifications in m
  The instruction set will be 32-bit and compatible with R-format, load operation, store
 operation, branch and unconditional jump.
 
- The six students will form 3 sub-group. Initially, One sub-group will work on ALU and
-Register, another group on Instruction memory and Data memory and the third group on
-the control circuit design. After finishing their respective job all the sub-group will work
-as one group and integrate the whole design.
-
- The MIPS module (Processor module) must be designed only using synthesizeable
-Verilog code. Proper commenting throughout the code will be given positive marks.
+ The MIPS module (Processor module) is designed only using synthesizeable
+Verilog code.
 
  Although traditional MIPS architecture has 32 registers reserved for proper functionality,
 for the design purpose only $t0 - $t8 registers are required with 5-bit addressing i.e
-5’b00000 corresponding to $s0 and 5’b01000 corresponding to $t8. With 32-bit addressing, the data memory has a size of 4Gb. For project demonstration,
+5’b00000 corresponding to $s0 and 5’b01000 corresponding to $t8. With 32-bit addressing, the data memory has a size of 128KB. For project demonstration,
 only the first 32 word memories could be initialized to zero.
 
 
