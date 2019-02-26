@@ -14,31 +14,31 @@ for the design purpose only $t0 - $t8 registers are required with 5-bit addressi
 only the first 32 word memories could be initialized to zero.
 
 
-Operation         Opcode    Function    alu_op  alu_control
+Operation---------Opcode----Function----alu_op--alu_control
 
-R-format (ADD)    000000    100000      10      0010
+R-format (ADD)----000000    100000      10      0010
 
-R-format (SUB)    000000    100010      10      0110
+R-format (SUB)----000000    100010      10      0110
 
-R-format (AND)    000000    100100      10      0000
+R-format (AND)----000000    100100      10      0000
 
-R-format (OR)     000000    100101      10      0001
+R-format (OR)-----000000    100101      10      0001
 
-R-format (SLT)    000000    101010      10      0111
+R-format (SLT)----000000    101010      10      0111
 
-R-format (NOR)    000000    101111      10      0011
+R-format (NOR)----000000    101111      10      0011
 
-Beq               000100    xxxxxx      01      0110
+Beq---------------000100    xxxxxx      01      0110
 
-Bne               000110    xxxxxx      01      0110
+Bne---------------000110    xxxxxx      01      0110
 
-Lw                100011    xxxxxx      00      0010
+Lw----------------100011    xxxxxx      00      0010
 
-Sw                101011    xxxxxx      00      0010
+Sw----------------101011    xxxxxx      00      0010
 
-Jump              100110    xxxxxx      00      0010
+Jump--------------100110    xxxxxx      00      0010
 
-Addi              101000    xxxxxx      00      0010
+Addi--------------101000    xxxxxx      00      0010
 
 
  Finally We have implement the following c-code whose equivalent assembly
