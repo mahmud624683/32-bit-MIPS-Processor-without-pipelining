@@ -44,7 +44,7 @@ Addi--------------101000----xxxxxx------00------0010
  Finally We have implement the following c-code whose equivalent assembly
 language is also given below.
 
-// c code - 01
+// c code
 
 int a=0; // temporary variable 1
 
