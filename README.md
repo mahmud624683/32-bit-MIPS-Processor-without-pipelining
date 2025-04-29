@@ -1,95 +1,95 @@
-# 32-bit-MIPS-Processor-without-pipelining
+# 32-bit MIPS Processor (Without Pipelining)
 
-This 32-bit MIPS processor is designed keeping the following specifications in mind.
+This project implements a 32-bit **MIPS processor** in Verilog, adhering to a simplified instruction set and register usage. The processor is developed using only **synthesizable Verilog code** and supports basic R-type, I-type, and jump operations.
 
- The instruction set will be 32-bit and compatible with R-format, load operation, store
-operation, branch and unconditional jump.
+---
 
- The MIPS module (Processor module) is designed only using synthesizeable
-Verilog code.
+## ✅ Features
 
- Although traditional MIPS architecture has 32 registers reserved for proper functionality,
-for the design purpose only $t0 - $t8 registers are required with 5-bit addressing i.e
-5’b00000 corresponding to $s0 and 5’b01000 corresponding to $t8. With 32-bit addressing, the data memory has a size of 128KB. For project demonstration,
-only the first 32 word memories could be initialized to zero.
+- **32-bit instruction set**
+- Supports **R-format**, **load**, **store**, **branch**, **jump**, and **addi** operations
+- Designed using **synthesizable Verilog only**
+- Utilizes **$t0–$t8** registers with 5-bit addressing (e.g., `5'b00000` for `$t0`, `5'b01000` for `$t8`)
+- **128KB memory** with 32 initialized words for demonstration
 
+---
 
-Operation---------Opcode----Function----alu_op--alu_control
+## 🧠 Supported Instructions
 
-R-format (ADD)----000000----100000------10------0010
+| Operation       | Opcode  | Function | ALU Op | ALU Control |
+|----------------|---------|----------|--------|-------------|
+| R-format (ADD) | 000000  | 100000   | 10     | 0010        |
+| R-format (SUB) | 000000  | 100010   | 10     | 0110        |
+| R-format (AND) | 000000  | 100100   | 10     | 0000        |
+| R-format (OR)  | 000000  | 100101   | 10     | 0001        |
+| R-format (SLT) | 000000  | 101010   | 10     | 0111        |
+| R-format (NOR) | 000000  | 101111   | 10     | 0011        |
+| BEQ            | 000100  | xxxxxx   | 01     | 0110        |
+| BNE            | 000110  | xxxxxx   | 01     | 0110        |
+| LW             | 100011  | xxxxxx   | 00     | 0010        |
+| SW             | 101011  | xxxxxx   | 00     | 0010        |
+| JUMP           | 100110  | xxxxxx   | 00     | 0010        |
+| ADDI           | 101000  | xxxxxx   | 00     | 0010        |
 
-R-format (SUB)----000000----100010------10------0110
+---
 
-R-format (AND)----000000----100100------10------0000
+## 🔁 C Code Implementation
 
-R-format (OR)-----000000----100101------10------0001
+```c
+int a = 0;
+int b = 1;
+int c;
 
-R-format (SLT)----000000----101010------10------0111
-
-R-format (NOR)----000000----101111------10------0011
-
-Beq---------------000100----xxxxxx------01------0110
-
-Bne---------------000110----xxxxxx------01------0110
-
-Lw----------------100011----xxxxxx------00------0010
-
-Sw----------------101011----xxxxxx------00------0010
-
-Jump--------------100110----xxxxxx------00------0010
-
-Addi--------------101000----xxxxxx------00------0010
-
-
- Finally We have implement the following c-code whose equivalent assembly
-language is also given below.
-
-// c code
-
-int a=0; // temporary variable 1
-
-int b=1; // temporary variable 2
-
-int c; // variable three
-
-for (int i=0; i<20; i=i+2)
-{
-
-c=a+b; // variable 3 = variable 1 + variable 2
-
-a=b; // variable 1 gets the value of variable 2
-
-b=c; // variable 2 gets the new value of variable 3
+for (int i = 0; i < 20; i = i + 2) {
+    c = a + b;
+    a = b;
+    b = c;
 }
+// store value of `c` in data memory
+```
 
-// storing value of “c” in data memory// Assembly code
+---
 
-//initializing the first two variables in temp register
+## 🧾 Corresponding Assembly Code
 
-addi $t1, $t1, 0 // PC=04
+```assembly
+addi $t1, $t1, 0     # a = 0           | PC = 04
+addi $t2, $t2, 1     # b = 1           | PC = 08
+addi $t3, $t3, 0     # i = 0           | PC = 12
+addi $t4, $t4, 20    # t4 = 20         | PC = 16
 
-addi $t2, $t2, 1 // PC=08
+loop:
+add  $s1, $t1, $t2   # c = a + b       | PC = 20
+addi $t1, $t2, 0     # a = b           | PC = 24
+addi $t2, $s1, 0     # b = c           | PC = 28
+addi $t3, $t3, 2     # i = i + 2       | PC = 32
+beq  $t4, $t3, 1     # if i == 20 -> skip next jump | PC = 36
+j    loop            # else continue   | PC = 40
 
-addi $t3, $t3, 0 // $t3 holds the value of int i. PC=12
+sw   $s1, 5($t4)     # store c in memory[5 + t4]    | PC = 44
+slt  $s2, $t4, $s1   # check if c > 20              | PC = 48
+```
 
-addi $t4, $t4, 20 // $t4 = 20. PC=16
+---
 
-add $s1, $t1, $t2 // c=a+b. PC=20
+## 🧰 Tools Used
 
-addi $t1, $t2, 0 // a=b. PC=24
+- **Language**: Verilog
+- **Simulation**: ModelSim / Cadence (recommended)
+- **Synthesis**: Any FPGA synthesis tool supporting Verilog
 
-addi $t2, $s1, 0 // b=c. PC=28
+---
 
-addi $t3, $t3, 2 // i=i+2. PC=32
+## 📂 Memory and Register Mapping
 
-beq $t4, $t3, 1 // if branch taken then jump to PC+4+4
+- **Registers used**: `$t0–$t8`, `$s1`, `$s2`
+- **5-bit addressing**: `5'b00000` to `5'b01000`
+- **Data Memory**: 128KB total, first 32 words initialized to 0
 
-// PC=36
+---
 
-j 5 // else jump to PC=20. Loop continues PC=40
+## 📌 Notes
 
-sw $s1, 5($t4) // memory[5+$t4] = $s1 PC=44
-
-slt $s2, $t4, $s1 // if $s2=1 then c>20 PC=48
-
-// Program ends here
+- This is a **non-pipelined** implementation.
+- Control signals and ALU control logic are designed manually.
+- Future work could involve adding pipelining stages and hazard handling.
